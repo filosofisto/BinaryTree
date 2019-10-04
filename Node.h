@@ -16,19 +16,19 @@ public:
     ~Node();
 
     T getData() const;
-    void setLeft(Node<T> *node);
-    void setRight(Node<T> *node);
+    void setLeft(shared_ptr<Node<T>> node);
+    void setRight(shared_ptr<Node<T>> node);
 
-    Node<T> *left() const;
-    Node<T> *right() const;
+    shared_ptr<Node<T>> left() const;
+    shared_ptr<Node<T>> right() const;
 private:
     T data;
-    Node<T> *_left;
-    Node<T> *_right;
+    shared_ptr<Node<T>> _left;
+    shared_ptr<Node<T>> _right;
 };
 
 template<typename T>
-Node<T>::Node(const T &data): data(data), _left(nullptr), _right(nullptr)
+Node<T>::Node(const T &data): data(data)
 {
 
 }
@@ -42,22 +42,22 @@ T Node<T>::getData() const {
 }
 
 template<typename T>
-void Node<T>::setLeft(Node<T> *node) {
+void Node<T>::setLeft(shared_ptr<Node<T>> node) {
     this->_left = node;
 }
 
 template<typename T>
-void Node<T>::setRight(Node<T> *node) {
+void Node<T>::setRight(shared_ptr<Node<T>> node) {
     this->_right = node;
 }
 
 template<typename T>
-Node<T>* Node<T>::left() const {
+shared_ptr<Node<T>> Node<T>::left() const {
     return this->_left;
 }
 
 template<typename T>
-Node<T>* Node<T>::right() const {
+shared_ptr<Node<T>> Node<T>::right() const {
     return this->_right;
 }
 

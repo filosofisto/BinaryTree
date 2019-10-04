@@ -10,18 +10,18 @@
 template <typename T>
 class BinaryTree {
 public:
-    explicit BinaryTree(Node<T> *root);
+    explicit BinaryTree(shared_ptr<Node<T>> root);
     virtual ~BinaryTree();
 
     bool find(const T &data) const;
 private:
-    bool find(Node<T> *node, const T &data) const;
+    bool find(shared_ptr<Node<T>> node, const T &data) const;
 
-    Node<T> *root;
+    shared_ptr<Node<T>> root;
 };
 
 template<typename T>
-BinaryTree<T>::BinaryTree(Node<T> *root): root(root) {
+BinaryTree<T>::BinaryTree(shared_ptr<Node<T>> root): root(root) {
 
 }
 
@@ -35,7 +35,7 @@ bool BinaryTree<T>::find(const T &data) const {
 }
 
 template<typename T>
-bool BinaryTree<T>::find(Node<T> *node, const T &data) const {
+bool BinaryTree<T>::find(shared_ptr<Node<T>> node, const T &data) const {
     if (node == nullptr) {
         //cout << "x" << endl;
         return false;
