@@ -6,6 +6,7 @@
 #define BINARYTREE_NODE_H
 
 #include <memory>
+#include <iostream>
 
 using namespace std;
 
@@ -16,15 +17,15 @@ public:
     ~Node();
 
     T getData() const;
-    void setLeft(shared_ptr<Node<T>> node);
-    void setRight(shared_ptr<Node<T>> node);
+    void setLeft(Node<T> *node);
+    void setRight(Node<T> *node);
 
-    shared_ptr<Node<T>> left() const;
-    shared_ptr<Node<T>> right() const;
+    Node<T> *left() const;
+    Node<T> *right() const;
 private:
     T data;
-    shared_ptr<Node<T>> _left;
-    shared_ptr<Node<T>> _right;
+    Node<T> *_left;
+    Node<T> *_right;
 };
 
 template<typename T>
@@ -34,7 +35,17 @@ Node<T>::Node(const T &data): data(data)
 }
 
 template<typename T>
-Node<T>::~Node() = default;
+Node<T>::~Node()
+{
+    if (this->_left != nullptr) {
+        delete this->_left;
+    }
+    if (this->_right != nullptr) {
+        delete this->_right;
+    }
+
+    cout << "Good by cruel world (node)" << data << endl;
+}
 
 template<typename T>
 T Node<T>::getData() const {
@@ -42,22 +53,22 @@ T Node<T>::getData() const {
 }
 
 template<typename T>
-void Node<T>::setLeft(shared_ptr<Node<T>> node) {
+void Node<T>::setLeft(Node<T> *node) {
     this->_left = node;
 }
 
 template<typename T>
-void Node<T>::setRight(shared_ptr<Node<T>> node) {
+void Node<T>::setRight(Node<T> *node) {
     this->_right = node;
 }
 
 template<typename T>
-shared_ptr<Node<T>> Node<T>::left() const {
+Node<T> *Node<T>::left() const {
     return this->_left;
 }
 
 template<typename T>
-shared_ptr<Node<T>> Node<T>::right() const {
+Node<T> *Node<T>::right() const {
     return this->_right;
 }
 

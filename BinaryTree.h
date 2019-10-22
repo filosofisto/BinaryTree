@@ -21,10 +21,10 @@ public:
     bool empty() const;
     size_t size() const;
 private:
-    bool find(shared_ptr<Node<T>> node, const T &data) const;
-    void add(shared_ptr<Node<T>> node, const T&data);
+    bool find(Node<T> *node, const T &data) const;
+    void add(Node<T> *node, const T&data);
 
-    shared_ptr<Node<T>> root;
+    Node<T> *root;
     size_t _size;
 };
 
@@ -35,7 +35,14 @@ BinaryTree<T>::BinaryTree(): _size(0)
 }
 
 template<typename T>
-BinaryTree<T>::~BinaryTree() = default;
+BinaryTree<T>::~BinaryTree()
+{
+    if (root != nullptr) {
+        delete root;
+    }
+
+    cout << "Good by cruel world (tree)" << endl;
+}
 
 
 template<typename T>
@@ -45,7 +52,7 @@ bool BinaryTree<T>::find(const T &data) const
 }
 
 template<typename T>
-bool BinaryTree<T>::find(shared_ptr<Node<T>> node, const T &data) const
+bool BinaryTree<T>::find(Node<T> *node, const T &data) const
 {
     if (node == nullptr) {
         //cout << "x" << endl;
@@ -70,7 +77,7 @@ template<typename T>
 BinaryTree<T>* BinaryTree<T>::add(const T &data)
 {
     if (root == nullptr) {
-        root = make_shared<Node<T>>(data);
+        root = new Node<T>(data);
         _size++;
     } else {
         add(root, data);
@@ -80,11 +87,11 @@ BinaryTree<T>* BinaryTree<T>::add(const T &data)
 }
 
 template<typename T>
-void BinaryTree<T>::add(shared_ptr<Node<T>> node, const T &data)
+void BinaryTree<T>::add(Node<T> *node, const T &data)
 {
     if (data >= node->getData()) {
         if (node->right() == nullptr) {
-            shared_ptr<Node<T>> newNode = make_shared<Node<T>>(data);
+            Node<T> *newNode = new Node<T>(data);
             node->setRight(newNode);
             _size++;
         } else {
@@ -92,7 +99,7 @@ void BinaryTree<T>::add(shared_ptr<Node<T>> node, const T &data)
         }
     } else {
         if (node->left() == nullptr) {
-            shared_ptr<Node<T>> newNode = make_shared<Node<T>>(data);
+            Node<T> *newNode = new Node<T>(data);
             node->setLeft(newNode);
             _size++;
         } else {

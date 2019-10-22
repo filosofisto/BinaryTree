@@ -14,7 +14,7 @@ int main() {
     cout << "         2       4       13" << endl;
     cout << "                     9" << endl;
 
-    unique_ptr<BinaryTree<int>> tree = make_unique<BinaryTree<int>>();
+    BinaryTree<int> *tree = new BinaryTree<int>();
     tree
         ->add(15)
         ->add(6)
@@ -41,6 +41,7 @@ int main() {
         cout << "Not Found" << endl;
     }
 
+    delete tree;
 
     return EXIT_SUCCESS;
 }
